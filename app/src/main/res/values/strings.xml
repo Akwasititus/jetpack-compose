@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">harkerthon</string>
+
+
+    <string name="welcomeText">Welcome to</string>
+    <string name="trendify">Trendify!</string>
+    <string name="explore">Explore the latest stocks &amp; track it!</string>
+
+<!--    <string name="titleScreen1">Play Game and \n learn numbers</string>-->
+    <string name="titleScreen1">Play Game &amp; \n learn numbers</string>
+    <string name="titleScreen2">Play Game and \nlearn Alphabets</string>
+    <string name="titleScreen3">win Rewards</string>
+    <string name="skip">skip</string>
+    <string name="buttonName">Get Started</string>
+</resources>
