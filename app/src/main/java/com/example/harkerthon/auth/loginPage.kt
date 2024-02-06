@@ -1,6 +1,7 @@
 package com.example.harkerthon
 
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -21,16 +22,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import composables.CustomTextField
 import composables.LightText
+import composables.OriginalText
 
 @Composable
 fun LoginPage(
-    onClickAction: () -> Unit
+    onClickAction: () -> Unit = {},
 ) {
 
     //============================================
@@ -47,6 +50,7 @@ fun LoginPage(
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
+    val myContext = LocalContext.current
 
             Column(
                 modifier = Modifier
@@ -63,13 +67,27 @@ fun LoginPage(
                 //=======================================
 
                 Column {
-                    LightText(textName = "Welcome to", fontSize = 25.sp,color = Color.Black)
+                    OriginalText(
+                        textName = "Welcome to",
+                        fontSize = 25.sp,
+                        color = Color.Black,
+                        modifier = Modifier
+                            .padding(0.dp)
+                    )
 
-                    LightText(textName = "Trendify!", fontSize = 60.sp, color = Color(0xFF22577A))
+                    OriginalText(
+                        textName = "Trendify!",
+                        fontSize = 60.sp,
+                        color = Color(0xFF22577A),
+                        modifier = Modifier
+                            .padding(0.dp)
+                    )
 
-                    LightText(
+                    OriginalText(
                         textName = "Explore the latest stocks & track it", fontSize = 15.sp,color = Color.Black,
-                        modifier = Modifier.padding(bottom = 32.dp))
+                        modifier = Modifier.padding(bottom = 32.dp),
+
+                        )
 
                     //=======================================
                     // Text fields
@@ -83,17 +101,10 @@ fun LoginPage(
                 )
 
                 {
-                    CustomTextField(
-                        value = email,
-//                       // strokeWidth = 4,
-                        label = "email",
-                        keyboardType = KeyboardType.Email,
-                        onValueChange = { email = it },
-                    )
 
                     CustomTextField(
                         value = email,
-                       // strokeWidth = 4,
+                        strokeWidth = 4,
                         label = "email",
                         keyboardType = KeyboardType.Email,
                         onValueChange = { email = it },
@@ -102,6 +113,7 @@ fun LoginPage(
                     CustomTextField(
                         value = password,
                         label = "password",
+                        strokeWidth = 4,
                         keyboardType = KeyboardType.Password,
                         visualTransformation = PasswordVisualTransformation(),
                         onValueChange = { password = it },
@@ -110,13 +122,13 @@ fun LoginPage(
                 //=======================================
                 // forget password
                 //=======================================
-                Spacer(modifier = Modifier.height(40.dp))
+                Spacer(modifier = Modifier.height(30.dp))
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = 16.dp),
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
+                    //verticalArrangement = Arrangement.Center
                 ) {
                     LightText(textName = "Forgot Password?", fontSize = 15.sp, color = Color.Black)
 
@@ -126,14 +138,15 @@ fun LoginPage(
 
                     Button(
                         onClick = {
-                            onClickAction()
+
+                            Toast.makeText(myContext, "Email: $email Password: $password", Toast.LENGTH_LONG).show()
                                   },
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(70.dp)
                             .padding(
-                                top = 15.dp,
-                                end = 25.dp,
+                                top = 10.dp,
+                                //end = 25.dp,
                                 start = 25.dp
                             )
                     ) {
@@ -145,18 +158,11 @@ fun LoginPage(
                     //=======================================
                     // signup bottom
                     //=======================================
-                    LightText(textName = "or signup", fontSize = 15.sp,color = Color.Black)
+                    OriginalText(textName = "or signup", fontSize = 15.sp,color = Color.Black,onClickAction = {onClickAction()})
+
+
+
                 }
-
-//        Text(
-//            style = TextStyle(fontSize = 12.sp),
-//            text = "Terms & Conditions apply",
-//            modifier = Modifier
-//                .align(Alignment.BottomCenter)
-//                .padding(bottom = 12.dp)
-//        )
-
     }
-
-
 }
+

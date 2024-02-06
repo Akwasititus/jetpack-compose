@@ -35,75 +35,55 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.harkerthon.R
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.launch
 
-//@ExperimentalPagerApi
-//@Preview
-//@Composable
-//fun OnBoarding() {
-//    val items = OnBoardingItems.getData()
-//    val scope = rememberCoroutineScope()
-//    val pageState = rememberPagerState()
-//
-//    Column(modifier = Modifier.fillMaxSize()) {
-//
-//        HorizontalPager(
-//            count = items.size,
-//            state = pageState,
-//            modifier = Modifier
-//                .fillMaxHeight(0.9f)
-//                .fillMaxWidth()
-//        ) { page ->
-//            OnBoardingItem(items = items[page])
-//        }
-//        BottomSection(size = items.size, index = pageState.currentPage){
-//            if (pageState.currentPage + 1 < items.size) scope.launch {
-//                pageState.scrollToPage(items.size - 1)
-//            }
-//        }
-//    }
-//}
-
 @ExperimentalPagerApi
 @Composable
-fun OnBoarding() {
+fun OnBoarding(function: () -> Unit) {
     val items = OnBoardingItems.getData()
+
+    //to managing coroutine scopes,
     val scope = rememberCoroutineScope()
+
+    //is use to manage the state of a pager UI component.
     val pageState = rememberPagerState()
 
     Box(
         modifier = Modifier
             .fillMaxSize()
     ) {
-        // Set your image resource or URI here
+        // background image
         Image(
-            painter = painterResource(id = R.drawable.original_bg), // Replace with your image resource
-            contentDescription = null,
+            painter = painterResource(id = R.drawable.original_bg),
+            contentDescription = "background image",
             contentScale = ContentScale.FillBounds,
             modifier = Modifier
                 .fillMaxSize()
         )
 
         Column {
+
+            //a scrolling layout that allows users to flip between items to the left and right.
             HorizontalPager(
-                count = items.size,
-                state = pageState,
+                count = items.size, // item count. getting the length of items in the "OnBoardingItems"
+                state = pageState, // page state
                 modifier = Modifier
                     .fillMaxHeight(0.9f)
                     .fillMaxWidth()
             ) { page ->
-                OnBoardingItem(items = items[page])
+                OnBoardingItem(items = items[page], function)
             }
 
+
             BottomSection(size = items.size, index = pageState.currentPage) {
+
+                //this checks if there is a next page available in a pagination scenario.
+                // If there is, it launches a coroutine to scroll to the last page.
                 if (pageState.currentPage + 1 < items.size) scope.launch {
                     pageState.scrollToPage(items.size - 1)
                 }
@@ -116,20 +96,23 @@ fun OnBoarding() {
 
 
 @Composable
-fun BottomSection(size: Int, index: Int,onSkipClick: () -> Unit = {}) {
+fun BottomSection(
+    size: Int,
+    index: Int,
+    onSkipClick: () -> Unit = {}) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .padding(12.dp)
     ) {
         // Indicators
-        Indicators(size, index)
+        Indicators(size, index) // only "size, index" is called here
         TextButton(
-            onClick = onSkipClick,
+            onClick = onSkipClick, // only "onSkipClick" is called here
             modifier = Modifier.align(Alignment.CenterEnd),
             contentPadding = PaddingValues(0.dp)
         ) {
-            Text(text = "Skip", style = MaterialTheme.typography.labelSmall,)
+            Text(text = "Skip", style = MaterialTheme.typography.labelSmall)
         }
     }
 }
@@ -150,8 +133,9 @@ fun BoxScope.Indicators(size: Int, index: Int) {
 @Composable
 fun Indicator(isSelected: Boolean) {
     val width = animateDpAsState(
-        targetValue = 13.dp,
-        animationSpec = spring(dampingRatio = Spring.StiffnessLow), label = ""
+        targetValue = 13.dp, // target value to which the animation will interpolate.
+        animationSpec = spring(dampingRatio = Spring.StiffnessLow), // determines the animation behavior.
+        label = ""
     )
 
     Box(
@@ -168,9 +152,7 @@ fun Indicator(isSelected: Boolean) {
 }
 
 @Composable
-fun OnBoardingItem(items: OnBoardingItems) {
-
-    val myContext = LocalContext.current
+fun OnBoardingItem(items: OnBoardingItems, function: () -> Unit) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
@@ -198,7 +180,7 @@ fun OnBoardingItem(items: OnBoardingItems) {
         Spacer(modifier = Modifier.height(8.dp))
 
         ClickableImage(onClick = {
-            Toast.makeText(myContext, "My first Jetpack compose app", Toast.LENGTH_LONG).show()
+            function()
         })
     }
 }
@@ -212,6 +194,8 @@ fun PreviewFunction(){
         color = Color.White
     ) {
 
-        OnBoarding()
+//        OnBoarding {
+//            isNav.value = !isNav.value
+//        }
     }
 }

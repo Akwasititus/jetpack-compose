@@ -1,5 +1,6 @@
 package com.example.harkerthon
 
+import android.widget.Toast
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -32,13 +33,16 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.ClipOp
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import composables.CustomTextField
 import composables.LightText
+import composables.OriginalText
 
 @Composable
 fun RegisterPage(
@@ -51,6 +55,8 @@ fun RegisterPage(
     var name by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+
+    val myContext = LocalContext.current
 
 
         //=======================================
@@ -73,11 +79,11 @@ fun RegisterPage(
                 //=======================================
 
                 Column {
-                    LightText(textName = stringResource(id = R.string.welcomeText), fontSize = 25.sp,color = Color.Black)
+                    OriginalText(textName = stringResource(id = R.string.welcomeText), fontSize = 25.sp,color = Color.Black, )
 
-                    LightText(textName = stringResource(id = R.string.trendify), fontSize = 60.sp,color = Color(0xFF22577A))
+                    OriginalText(textName = stringResource(id = R.string.trendify), fontSize = 60.sp,color = Color(0xFF22577A))
 
-                    LightText(
+                    OriginalText(
                         textName = stringResource(id = R.string.explore),
                         fontSize = 15.sp,color = Color.Black,
                         modifier = Modifier.padding(bottom = 32.dp)
@@ -90,27 +96,30 @@ fun RegisterPage(
 
                 Spacer(modifier = Modifier.height(40.dp))
                 Column {
-//                    CustomTextField(
-//                        value = name,
-//                        label = "Name",
-//                        keyboardType = KeyboardType.Text,
-//                        onValueChange = { name = it },
-//                    )
-//
-//                    CustomTextField(
-//                        value = email,
-//                        label = "Enter Email",
-//                        keyboardType = KeyboardType.Email,
-//                        onValueChange = { email = it },
-//                    )
+                    CustomTextField(
+                        value = name,
+                        strokeWidth = 4,
+                        label = "Name",
+                        keyboardType = KeyboardType.Text,
+                        onValueChange = { name = it },
+                    )
 
-//                    CustomTextField(
-//                        value = password,
-//                        label = "Create Password",
-//                        keyboardType = KeyboardType.Password,
-//                        visualTransformation = PasswordVisualTransformation(),
-//                        onValueChange = { password = it },
-//                    )
+                    CustomTextField(
+                        value = email,
+                        strokeWidth = 4,
+                        label = "Enter Email",
+                        keyboardType = KeyboardType.Email,
+                        onValueChange = { email = it },
+                    )
+
+                    CustomTextField(
+                        value = password,
+                        strokeWidth = 4,
+                        label = "Create Password",
+                        keyboardType = KeyboardType.Password,
+                        visualTransformation = PasswordVisualTransformation(),
+                        onValueChange = { password = it },
+                    )
                     Spacer(modifier = Modifier.height(70.dp))
                     Column (
                         horizontalAlignment = Alignment.CenterHorizontally,
@@ -118,7 +127,8 @@ fun RegisterPage(
                     ) {
                         Button(
                             onClick = {
-                                onClickAction()
+                                Toast.makeText(myContext, "Email: $email Password: $password ", Toast.LENGTH_LONG).show()
+
                                       },
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -129,13 +139,13 @@ fun RegisterPage(
                                     start = 25.dp
                                 )
                         ) {
-                            Text("Login")
+                            Text("Register")
                         }
 
                         //=======================================
                         // signup bottom
                         //=======================================
-                        LightText(textName = "or signup", fontSize = 15.sp,color = Color.Black)
+                        OriginalText(textName = "or signup", fontSize = 15.sp,color = Color.Black, onClickAction = {onClickAction()})
 
                     }
 
