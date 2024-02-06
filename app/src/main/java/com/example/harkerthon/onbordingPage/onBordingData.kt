@@ -14,11 +14,16 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.harkerthon.R
 
+//=========================
+// Onboarding Model
+//========================
 class OnBoardingItems(
     val image: Int,
     val title: Int,
     val buttonName: Int
 ) {
+    //"companion object" this allows you to define properties
+    // and methods that are associated with the class itself,
     companion object{
         fun getData(): List<OnBoardingItems>{
             return listOf(
@@ -30,6 +35,10 @@ class OnBoardingItems(
     }
 }
 
+
+//=========================
+// SizeBox
+//========================
 @Composable
 fun MySpacer(
     modifier: Modifier,

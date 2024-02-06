@@ -1,6 +1,7 @@
-package com.example.harkerthon
+package com.example.harkerthon.auth
 
 
+import android.annotation.SuppressLint
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -28,9 +29,9 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import composables.CustomTextField
-import composables.LightText
 import composables.OriginalText
 
+@SuppressLint("SuspiciousIndentation")
 @Composable
 fun LoginPage(
     onClickAction: () -> Unit = {},
@@ -86,7 +87,6 @@ fun LoginPage(
                     OriginalText(
                         textName = "Explore the latest stocks & track it", fontSize = 15.sp,color = Color.Black,
                         modifier = Modifier.padding(bottom = 32.dp),
-
                         )
 
                     //=======================================
@@ -130,7 +130,7 @@ fun LoginPage(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     //verticalArrangement = Arrangement.Center
                 ) {
-                    LightText(textName = "Forgot Password?", fontSize = 15.sp, color = Color.Black)
+                    OriginalText(textName = "Forgot Password?", fontSize = 15.sp, color = Color.Black)
 
                     //=======================================
                     // login bottom
@@ -150,7 +150,7 @@ fun LoginPage(
                                 start = 25.dp
                             )
                     ) {
-                        Text("Login")
+                        Text("Login", color = Color.White)
                     }
 
                     //EclipsedBox(contentAlignment = Alignment.BottomCenter)

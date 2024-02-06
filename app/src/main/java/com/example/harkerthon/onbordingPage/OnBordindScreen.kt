@@ -1,6 +1,5 @@
 package com.example.harkerthon.onbordingPage
 
-import android.widget.Toast
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.spring
@@ -32,7 +31,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -42,6 +40,9 @@ import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.launch
 
+//=========================
+// Introduction Screen
+//========================
 @ExperimentalPagerApi
 @Composable
 fun OnBoarding(function: () -> Unit) {
@@ -94,7 +95,9 @@ fun OnBoarding(function: () -> Unit) {
 }
 
 
-
+//=========================
+// Bottom Compose
+//========================
 @Composable
 fun BottomSection(
     size: Int,
@@ -130,6 +133,9 @@ fun BoxScope.Indicators(size: Int, index: Int) {
     }
 }
 
+//=========================
+// Indicator
+//========================
 @Composable
 fun Indicator(isSelected: Boolean) {
     val width = animateDpAsState(
@@ -151,6 +157,10 @@ fun Indicator(isSelected: Boolean) {
     }
 }
 
+
+//=========================
+// onboarding Items
+//========================
 @Composable
 fun OnBoardingItem(items: OnBoardingItems, function: () -> Unit) {
     Column(
@@ -166,12 +176,10 @@ fun OnBoardingItem(items: OnBoardingItems, function: () -> Unit) {
                 .size(350.dp)
         )
 
-
         MySpacer(
             modifier = Modifier.fillMaxWidth(),
             height = 20.dp
         )
-
 
         Text(
             text = stringResource(id = items.title),
@@ -182,20 +190,5 @@ fun OnBoardingItem(items: OnBoardingItems, function: () -> Unit) {
         ClickableImage(onClick = {
             function()
         })
-    }
-}
-
-
-@ExperimentalPagerApi
-@Composable
-fun PreviewFunction(){
-    Surface(
-        modifier = Modifier.fillMaxSize(),
-        color = Color.White
-    ) {
-
-//        OnBoarding {
-//            isNav.value = !isNav.value
-//        }
     }
 }

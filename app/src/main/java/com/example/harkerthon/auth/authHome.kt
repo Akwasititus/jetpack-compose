@@ -1,4 +1,4 @@
-package com.example.harkerthon
+package com.example.harkerthon.auth
 
 
 import androidx.compose.animation.AnimatedContent
@@ -38,20 +38,9 @@ fun CircleCanvas(y: Int) {
 
 
 @Composable
-fun AnimateTheCircle(
+fun AuthHome(
     isAnimate: MutableState<Boolean> = remember { mutableStateOf(true) },
 ) {
-
-    LaunchedEffect(isAnimate.value) {
-        if (isAnimate.value) {
-            delay(5000)
-            //isAnimate.value = !isAnimate.value
-        // Adjust the delay time as needed (1000 milliseconds = 1 second)
-        }
-
-    }
-
-
     // AnimatedContent composable
     AnimatedContent(
         targetState = isAnimate.value,
@@ -69,7 +58,10 @@ fun AnimateTheCircle(
             )
         }
     ) { targetState ->
+
+        // moving canvas circle
         CircleCanvas(if (targetState) 350 else 1000)
+
         if (targetState) {
             LoginPage{
                 isAnimate.value = !isAnimate.value

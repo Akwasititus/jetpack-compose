@@ -41,7 +41,7 @@ fun CustomTextField(
     TextField(
         value = value,
         onValueChange = onValueChange,
-        label = { Text(label) },
+        label = { Text(label)},
         singleLine = true,
         keyboardOptions = KeyboardOptions.Default.copy(
             autoCorrect = true,
@@ -50,9 +50,10 @@ fun CustomTextField(
             imeAction = ImeAction.Done
         ),
         colors = TextFieldDefaults.textFieldColors(
-            focusedIndicatorColor = Color.Black,
-            unfocusedIndicatorColor = Color.Black,
-            containerColor = Color.Transparent
+            focusedIndicatorColor = Color.Transparent,
+            unfocusedIndicatorColor = Color.Transparent,
+            containerColor = Color.Transparent,
+            placeholderColor = Color.Transparent
         ),
         visualTransformation = visualTransformation,
         modifier = Modifier
@@ -65,22 +66,4 @@ fun CustomTextField(
                 shape = RoundedCornerShape(40.dp)
             )
     )
-}
-
-
-@Preview(showBackground = true)
-@Composable
-fun LoginPagePreview() {
-    var email by remember { mutableStateOf("") }
-    HarkerthonTheme {
-        Surface (color = Color(0xFF80ED99)){
-            CustomTextField(
-                value = email,
-                strokeWidth = 3,
-                label = "email",
-                keyboardType = KeyboardType.Email,
-                onValueChange = { email = it },
-            )
-        }
-    }
 }
